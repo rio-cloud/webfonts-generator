@@ -11,6 +11,11 @@ var calcHash = function(options) {
 	options.files.forEach(function(file) {
 		hash.update(fs.readFileSync(file, 'utf8'))
 	})
+	options = _.extend({}, options, {
+		dest: null,
+		htmlDest: null,
+		cssDest: null
+	})
 	hash.update(JSON.stringify(options))
 	return hash.digest('hex')
 }
@@ -68,6 +73,11 @@ var renderCss = function(options, urls) {
 	var ctx = makeCtx(options, urls)
 	var source = fs.readFileSync(options.cssTemplate, 'utf8')
 	var template = handlebars.compile(source)
+
+	if (typeof options.cssContext == 'function') {
+		options.cssContext(ctx, options, handlebars);
+	}
+
 	return template(ctx)
 }
 

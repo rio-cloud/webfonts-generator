@@ -14,18 +14,21 @@ Features:
 ## Install
 
 ```
-npm install --save-dev webfonts-generator
+npm install --save-dev vusion-webfonts-generator
 ```
 
 ## Usage
 
 ```js
-const webfontsGenerator = require('webfonts-generator');
-
+const webfontsGenerator = require('vusion-webfonts-generator');
+const file = fs.createReadStream('src/close.svg');
+file.metadata = {
+	name: 'close',
+}
 webfontsGenerator({
   files: [
     'src/dropdown.svg',
-    'src/close.svg',
+    file,
   ],
   dest: 'dest/',
 }, function(error) {
@@ -55,7 +58,7 @@ Type: `function(error, result)`
 
 *required*
 
-Type: `array.<string>`
+Type: `array.<string>|array.<readStream> `
 
 List of SVG files.
 
@@ -125,6 +128,14 @@ Paths of default templates are stored in the `webfontsGenerator.templates` objec
 	.icon { @include webfont-icon('icon'); }
 	```
 
+### cssContext
+
+Type: `function`
+<br>
+Default: `options.function(ctx, options, handlebars) {}`
+
+Add parameters or helper to your template.
+
 ### cssFontsPath
 
 Type: `string`
@@ -164,6 +175,14 @@ Template receives options from `options.templateOptions` along with the followin
 * styles `string` &ndash; Styles generated with default CSS template.
 	(`cssFontsPath` is chaged to relative path from `htmlDest` to `dest`)
 * names `array.<string>` &ndash; Names of icons.
+
+### htmlContext
+
+Type: `function`
+<br>
+Default: `options.function(ctx, options, handlebars) {}`
+
+Add parameters or helper to your template.
 
 ### templateOptions
 
@@ -218,6 +237,14 @@ Type: `object`
 
 Specific codepoints for certain icons.
 Icons without codepoints will have codepoints incremented from `startCodepoint` skipping duplicates.
+
+### ligature
+
+Type: `boolean`
+<br>
+Default: `true`
+
+Enable or disable ligature function.
 
 ### fontName, normalize, fontHeight, round, descent
 

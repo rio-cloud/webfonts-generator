@@ -2,7 +2,7 @@ var fs = require('fs')
 var _ = require('underscore')
 var Q = require('q')
 
-var svgicons2svgfont = require('svgicons2svgfont')
+var SVGIcons2SVGFontStream = require('svgicons2svgfont')
 var svg2ttf = require('svg2ttf')
 var ttf2woff = require('ttf2woff')
 var ttf2woff2 = require('ttf2woff2')
@@ -24,7 +24,19 @@ var generators = {
 		fn: function(options, done) {
 			var font = new Buffer(0)
 			var svgOptions = _.pick(options,
-				'fontName', 'fontHeight', 'descent', 'normalize', 'round'
+				'fontName',
+				'fontId',
+				'fontStyle',
+				'fontWeight',
+				'fixedWidth',
+				'centerHorizontally',
+				'normalize',
+				'fontHeight',
+				'round',
+				'descent',
+				'ascent',
+				'metadata',
+				'log'
 			)
 
 			if (options.formatOptions['svg']) {
@@ -33,25 +45,32 @@ var generators = {
 
 			svgOptions.log = function(){}
 
-			var fontStream = svgicons2svgfont(svgOptions)
+			var fontStream = new SVGIcons2SVGFontStream(svgOptions)
 				.on('data', function(data) {
 					font = Buffer.concat([font, data])
 				})
+				.on('error', done)
 				.on('end', function() {
 					done(null, font.toString())
 				})
 
 			_.each(options.files, function(file, idx) {
-				var glyph = fs.createReadStream(file)
+				var glyph = typeof file === 'string' ? fs.createReadStream(file) : file;
 				var name = options.names[idx]
 				var unicode = String.fromCharCode(options.codepoints[name])
-                var ligature = ''
-                for(var i=0;i<name.length;i++) {
-                    ligature+=String.fromCharCode(name.charCodeAt(i))
+                var unicodeArray
+                if (options.ligature) {
+                    var ligature = ''
+                    for(var i=0;i<name.length;i++) {
+                        ligature+=String.fromCharCode(name.charCodeAt(i))
+                    }
+                    unicodeArray = [unicode,ligature]
+                } else {
+                    unicodeArray = [unicode]
                 }
 				glyph.metadata = {
 					name: name,
-					unicode: [unicode,ligature]
+					unicode: unicodeArray
 				}
 				fontStream.write(glyph)
 			})
@@ -63,7 +82,9 @@ var generators = {
 	ttf: {
 		deps: ['svg'],
 		fn: function(options, svgFont, done) {
-			var font = svg2ttf(svgFont, options.formatOptions['ttf'])
+			var formatOptions = options.formatOptions['ttf'] || {};
+			formatOptions.ts = 1484141760000;
+			var font = svg2ttf(svgFont, formatOptions)
 			font = new Buffer(font.buffer)
 			done(null, font)
 		}

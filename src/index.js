@@ -24,12 +24,14 @@ var DEFAULT_OPTIONS = {
 	fontName: 'iconfont',
 	css: true,
 	cssTemplate: TEMPLATES.css,
+	cssContext: function(context, options, handlebars) {},
 	html: false,
 	htmlTemplate: TEMPLATES.html,
+	htmlContext: function(context, options, handlebars) {},
 	types: ['eot', 'woff', 'woff2'],
 	order: ['eot', 'woff2', 'woff', 'ttf', 'svg'],
 	rename: function(file) {
-		return path.basename(file, path.extname(file))
+		return typeof file === 'string' ? path.basename(file, path.extname(file)) : file.metadata.name;
 	},
 	formatOptions: {},
 	/**
@@ -37,6 +39,7 @@ var DEFAULT_OPTIONS = {
 	 * http://en.wikipedia.org/wiki/Private_Use_(Unicode)
 	 */
 	startCodepoint: 0xF101,
+	ligature: true,
 	normalize: true
 }
 
@@ -99,9 +102,14 @@ var webfont = function(options, done) {
 		.then(function(result) {
 			if (options.writeFiles) writeResult(result, options)
 
+			result.generateHtml = function(urls) {
+				return renderHtml(options, urls)
+			}
+
 			result.generateCss = function(urls) {
 				return renderCss(options, urls)
 			}
+
 			done(null, result)
 		})
 		.catch(function(err) { done(err) })
