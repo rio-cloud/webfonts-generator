@@ -27,18 +27,18 @@
     "url": "https://github.com/rio-cloud/webfonts-generator/issues"
   },
   "dependencies": {
-    "handlebars": "^4.0.11",
-    "mkdirp": "^1.0.4",
-    "q": "^1.1.2",
-    "svgicons2svgfont": "^10.0.4",
+    "handlebars": "^4.7.7",
+    "mkdirp": "^2.1.6",
+    "q": "^1.5.1",
+    "svgicons2svgfont": "^12.0.0",
     "ttf2woff": "^3.0.0",
-    "underscore": "^1.9.1",
-    "url-join": "^4.0.0"
+    "underscore": "^1.13.6",
+    "url-join": "^5.0.0"
   },
   "devDependencies": {
-    "file-type": "^16.1.0",
-    "mocha": "^8.2.1",
-    "node-sass": "^6.0.1",
-    "read-chunk": "^3.2.0"
+    "file-type": "^18.2.1",
+    "mocha": "^10.2.0",
+    "node-sass": "^8.0.0",
+    "read-chunk": "^4.0.3"
   }
 }
