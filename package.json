@@ -1,6 +1,6 @@
 {
-  "name": "@vusion/webfonts-generator",
-  "version": "0.4.1",
+  "name": "webfonts-generator",
+  "version": "0.4.2",
   "description": "Generator of webfonts from svg icons",
   "main": "src/index.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vusion/webfonts-generator"
+    "url": "https://github.com/rio-cloud/webfonts-generator"
   },
   "keywords": [
     "font",
@@ -21,20 +21,17 @@
     "woff",
     "woff2"
   ],
-  "author": "moujintao <moujintaotest@163.com>",
+  "author": "RIO UIKIT <uxui@rio.cloud>",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/vusion/webfonts-generator/issues"
+    "url": "https://github.com/rio-cloud/webfonts-generator/issues"
   },
   "dependencies": {
     "handlebars": "^4.0.11",
     "mkdirp": "^1.0.4",
     "q": "^1.1.2",
-    "svg2ttf": "^5.0.0",
     "svgicons2svgfont": "^9.0.3",
-    "ttf2eot": "^2.0.0",
     "ttf2woff": "^2.0.1",
-    "ttf2woff2": "^4.0.1",
     "underscore": "^1.9.1",
     "url-join": "^4.0.0"
   },
