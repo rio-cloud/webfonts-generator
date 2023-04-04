@@ -14,13 +14,13 @@ Features:
 ## Install
 
 ```
-npm install --save-dev vusion-webfonts-generator
+npm install --save-dev @vusion/webfonts-generator
 ```
 
 ## Usage
 
 ```js
-const webfontsGenerator = require('vusion-webfonts-generator');
+const webfontsGenerator = require('@vusion/webfonts-generator');
 const file = fs.createReadStream('src/close.svg');
 file.metadata = {
 	name: 'close',
