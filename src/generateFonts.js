@@ -5,8 +5,6 @@ var Q = require('q')
 var SVGIcons2SVGFontStream = require('svgicons2svgfont')
 var svg2ttf = require('svg2ttf')
 var ttf2woff = require('ttf2woff')
-var ttf2woff2 = require('ttf2woff2')
-var ttf2eot = require('ttf2eot')
 
 /**
  * Generators for files of different font types.
@@ -98,24 +96,6 @@ var generators = {
 			done(null, font)
 		}
 	},
-
-	woff2: {
-		deps: ['ttf'],
-		fn: function(options, ttfFont, done) {
-			var font = ttf2woff2(new Uint8Array(ttfFont), options.formatOptions['woff2'])
-			font = new Buffer(font.buffer)
-			done(null, font)
-		}
-	},
-
-	eot: {
-		deps: ['ttf'],
-		fn: function(options, ttfFont, done) {
-			var font = ttf2eot(new Uint8Array(ttfFont), options.formatOptions['eot'])
-			font = new Buffer(font.buffer)
-			done(null, font)
-		}
-	}
 }
 
 /**

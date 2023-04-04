@@ -7,20 +7,20 @@ Generator of webfonts from SVG icons.
 
 Features:
 
-* Supported font formats: WOFF2, WOFF, EOT, TTF and SVG.
+* Supported font formats: WOFF, TTF and SVG.
 * Supported browsers: IE8+.
 * Generates CSS files and HTML preview, allows to use custom templates.
 
 ## Install
 
 ```
-npm install --save-dev vusion-webfonts-generator
+npm install --save-dev @vusion/webfonts-generator
 ```
 
 ## Usage
 
 ```js
-const webfontsGenerator = require('vusion-webfonts-generator');
+const webfontsGenerator = require('@vusion/webfonts-generator');
 const file = fs.createReadStream('src/close.svg');
 file.metadata = {
 	name: 'close',
@@ -259,10 +259,7 @@ Specific per format arbitrary options to pass to the generator
 
 format and matching generator:
 - `svg` - [svgicons2svgfont](https://github.com/nfroidure/svgicons2svgfont).
-- `ttf` - [svg2ttf](https://github.com/fontello/svg2ttf).
-- `woff2` - [ttf2woff2](https://github.com/nfroidure/ttf2woff2).
 - `woff` - [ttf2woff](https://github.com/fontello/ttf2woff).
-- `eot` - [ttf2eot](https://github.com/fontello/ttf2eot).
 
 ```js
 webfontsGenerator({

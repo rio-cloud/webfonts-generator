@@ -1,3 +1,11 @@
+0.4.2
+
+* Removed eot and woff2 support to remove vulnerabilities
+
+0.4.1
+
+* Update dependencies.
+
 0.4.0
 
 * Add woff2 support.
